@@ -12,7 +12,6 @@ if x.upper() == 'Y':
 
 import ollama
 import customtkinter as ctk
-import ttkbootstrap
 
 
 
@@ -25,7 +24,7 @@ app.resizable(False, False)
 
 
 
-l_model = []
+n_model = []
 
 b = ollama.list()
 if b['models'] == []:
@@ -52,7 +51,7 @@ if b['models'] == []:
 b = ollama.list()
 
 for i in range(len(b['models'])):
-    l_model.append(b['models'][i]['name'])
+    n_model.append(b['models'][i]['name'])
 
 
 def downloader():
@@ -89,8 +88,8 @@ def Response(app):
 
 
 
-t = ctk.StringVar(value=l_model[0])
-dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t, font=("Arial", 12))
+t = ctk.StringVar(value=n_model[0])
+dropdown = ctk.CTkOptionMenu(app, values=n_model, variable=t, font=("Arial", 12))
 dropdown.pack(pady=(10, 30))
 
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)

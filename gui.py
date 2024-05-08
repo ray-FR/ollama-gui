@@ -67,6 +67,7 @@ def downloader():
     n_model.append(b['models'][i]['name'])
   dropdown.configure(values=n_model)
   t.set(n_model[0])
+  print('\n\n')
 
 def Response(app):
     

@@ -37,14 +37,19 @@ def Response(app):
 
 t = ctk.StringVar(value=l_model[0])
 dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t)
-dropdown.pack(pady=30)
+dropdown.pack(pady=(20, 25))
 
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
-answer.pack(pady=30)
+answer.pack(pady=5)
+
+but = ctk.CTkButton(app, text="Download more models (in terminal)")
+but.pack(side="bottom", pady=(0, 10))
 
 txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=5, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
+
+
 
 
 

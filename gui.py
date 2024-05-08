@@ -19,7 +19,7 @@ app = ctk.CTk()
 app.geometry('1400x720')
 app.title('Ollama GUI')
 app.resizable(False, False)
-app.iconbitmap()
+app.iconbitmap("llama_icon.ico")
 
 
 
@@ -89,8 +89,8 @@ def Response(app):
 
 
 t = ctk.StringVar(value=l_model[0])
-dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t)
-dropdown.pack(pady=(20, 25))
+dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t, font=("Arial", 12))
+dropdown.pack(pady=(10, 30))
 
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
 answer.pack(pady=5)

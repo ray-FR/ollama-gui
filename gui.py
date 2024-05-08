@@ -1,6 +1,11 @@
 import ollama
 import tkinter
 import customtkinter as ctk
+import sys
+import importlib
+
+
+
 
 
 
@@ -15,6 +20,7 @@ test = ctk.CTkLabel(app, width=300, text="AAA")
 test.pack()
 entry = ctk.CTkEntry(app, width=200, placeholder_text="testing")
 entry.pack(padx = 20, pady = 50)
+
 
 
 
@@ -34,5 +40,18 @@ response = ollama.chat(model='phi3', messages=[
 ])
 print(response['message']['content'])
 """
+"""
+if 'ttkbootstrap' in sys.modules:
+    print('N')
+future code to be used to check if a certain lib is installed on the system
+def check(lib_n):
+  try:
+    importlib.import_module(lib_n)
+
+  except ModuleNotFoundError:
+    import subprocess
+    subprocess.run(['pip', 'install', lib_n])
+
+"""    
 
 app.mainloop()

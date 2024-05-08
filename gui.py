@@ -19,7 +19,7 @@ app = ctk.CTk()
 app.geometry('1400x720')
 app.title('Ollama GUI')
 app.resizable(False, False)
-app.iconbitmap("llama_icon.ico")
+
 
 
 

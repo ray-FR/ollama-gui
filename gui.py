@@ -16,19 +16,20 @@ def testy(app):
     },
     ])
     test.configure(text=response['message']['content'])
-
+    
 
 
 app = ctk.CTk()
-app.geometry('600x400')
+app.geometry('1400x720')
 app.title('test')
-app.resizable(True, False)
+app.resizable(False, False)
 txt = ctk.StringVar()
 
-test = ctk.CTkLabel(app, width=450, text='a', font=('Arial', 15), fg_color='gray')
-test.pack(pady=20)
-entry = ctk.CTkEntry(app, width=500, placeholder_text="write something", textvariable=txt)
-entry.pack(padx = 20, pady = 50)
+test = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
+
+test.pack(pady=30)
+entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=5, font=('Arial', 22), height=35)
+entry.pack(padx = 20, pady = 25, side="bottom")
 
 entry.bind('<Return>', testy)
 

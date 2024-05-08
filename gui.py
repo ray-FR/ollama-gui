@@ -5,13 +5,14 @@ print()
 if x.upper() == 'Y':
    subprocess.run(['pip', 'install', 'ollama'])
    subprocess.run(['pip', 'install', 'customtkinter'])
-   print("\n\nIf no errors happened, these 2 libraries should be correctly installed, just in case of an issue, the program will stop itself, once you re-run, please type 'N' or any other letters")
+   print("\n\nIf no errors happened, these 2 libraries should be correctly installed, if theres an issue, just relaunch the program, enjoy! ")
    print('\n\n')
-   quit()
+   
 
 
 import ollama
 import customtkinter as ctk
+import ttkbootstrap
 
 
 

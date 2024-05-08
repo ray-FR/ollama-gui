@@ -17,8 +17,9 @@ import customtkinter as ctk
 
 app = ctk.CTk()
 app.geometry('1400x720')
-app.title('test')
+app.title('Ollama GUI')
 app.resizable(False, False)
+app.iconbitmap()
 
 
 
@@ -98,7 +99,7 @@ button_d = ctk.CTkButton(app, text="Download more models (in terminal)", command
 button_d.pack(side="bottom", pady=(0, 10))
 
 txt = ctk.StringVar()
-entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=5, font=('Arial', 22), height=35)
+entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=10, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
 
 

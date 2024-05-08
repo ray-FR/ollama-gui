@@ -1,6 +1,6 @@
 import subprocess
 print('\n\n')
-x = str(input('Want to install the relevent libraries? (Ollama, customtkinter)[Y, N] ->  '))
+x = str(input('Want to install the relevent libraries? (Ollama, customtkinter)  [Y, N] ->   '))
 print()
 if x.upper() == 'Y':
    subprocess.run(['pip', 'install', 'ollama'])
@@ -25,16 +25,29 @@ app.resizable(False, False)
 
 l_model = []
 
-b = (ollama.list())
+b = ollama.list()
 if b['models'] == []:
-  a = str(input("It seems like you have no models installed. Please enter one below, enter h for recommended models"))
-  if a == 'h':
-     """\n\n
+  a = str(input("It seems like you have no models installed. Please enter one below, enter h for recommended models ->   "  ))
+  if a.lower() == 'h':
+    print(
+    """\n\n
      3 recommended models:
+          
+
       -phi3: small and lightweight. Can be run pretty easily.
       -mistral: not too big not too small, requires better specs
       -llama-3: very ressource intensive, but a very capable model
-     """
+
+          
+
+      You can also check other models on the ollama website: https://ollama.com/library
+      \n\n\n
+    """)
+    a = str(input("now choose one! ->  "))
+  print('\n\n')
+  subprocess.run(['ollama', 'pull', a])
+
+b = ollama.list()
 
 for i in range(len(b['models'])):
     l_model.append(b['models'][i]['name'])
@@ -48,10 +61,12 @@ def downloader():
   subprocess.run(['ollama', 'pull', a])
   button_d.configure(text="Download more models (in terminal)")
   button_d.configure('normal')
-  l_model = []
+  n_model = []
   b = (ollama.list())
   for i in range(len(b['models'])):
-    l_model.append(b['models'][i]['name'])
+    n_model.append(b['models'][i]['name'])
+  dropdown.configure(values=n_model)
+  t.set(n_model[0])
 
 def Response(app):
     

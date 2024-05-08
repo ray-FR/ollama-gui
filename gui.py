@@ -1,3 +1,15 @@
+import subprocess
+print('\n\n')
+x = str(input('Want to install the relevent libraries? (Ollama, customtkinter)[Y, N] ->  '))
+print()
+if x.upper() == 'Y':
+   subprocess.run(['pip', 'install', 'ollama'])
+   subprocess.run(['pip', 'install', 'customtkinter'])
+   print("\n\nIf no errors happened, these 2 libraries should be correctly installed, just in case of an issue, the program will stop itself, once you re-run, please type 'N' or any other letters")
+   print('\n\n')
+   quit()
+
+
 import ollama
 import customtkinter as ctk
 
@@ -12,18 +24,23 @@ app.resizable(False, False)
 
 
 l_model = []
-a = (ollama.list())
-for i in range(len(a['models'])):
-    l_model.append(a['models'][i]['name'])
+b = (ollama.list())
+for i in range(len(b['models'])):
+    l_model.append(b['models'][i]['name'])
 
 
 def downloader():
   button_d.configure(text="Check terminal")
   button_d.configure(state='diabled')
   a = str(input("What is the name of the model you wish to download? (From Ollama)  "))
-  ollama.pull(a)
+  print('\n\n')
+  subprocess.run(['ollama', 'pull', a])
   button_d.configure(text="Download more models (in terminal)")
   button_d.configure('normal')
+  l_model = []
+  b = (ollama.list())
+  for i in range(len(b['models'])):
+    l_model.append(b['models'][i]['name'])
 
 def Response(app):
     

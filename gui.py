@@ -11,16 +11,16 @@ for i in range(len(a['models'])):
 
 
 
-def testy(app):
-    print(t.get())
+def Response(app):
+    answer.configure(text="Writing..")
     
-    response = ollama.chat(model='phi3:latest', messages=[
+    response = ollama.chat(model=t.get(), messages=[
     {
     'role': 'user',
     'content': txt.get(),
     },
     ])
-    test.configure(text=response['message']['content'])
+    answer.configure(text=response['message']['content'])
     
 
 
@@ -35,13 +35,12 @@ dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t)
 dropdown.pack(pady=30)
 
 
-test = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
+answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
 
-test.pack(pady=30)
+answer.pack(pady=30)
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=5, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
 
-entry.bind('<Return>', testy)
 
 
 
@@ -50,6 +49,7 @@ entry.bind('<Return>', testy)
 
 
 
+entry.bind('<Return>', Response)
 #note stuff
 """
 a = (ollama.list())

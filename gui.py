@@ -4,12 +4,17 @@ import customtkinter as ctk
 import sys
 import importlib
 
+l_model = []
+a = (ollama.list())
+for i in range(len(a['models'])):
+    l_model.append(a['models'][i]['name'])
 
 
 
 def testy(app):
+    print(t.get())
     
-    response = ollama.chat(model='phi3', messages=[
+    response = ollama.chat(model='phi3:latest', messages=[
     {
     'role': 'user',
     'content': txt.get(),
@@ -24,6 +29,11 @@ app.geometry('1400x720')
 app.title('test')
 app.resizable(False, False)
 txt = ctk.StringVar()
+
+t = ctk.StringVar(value=l_model[0])
+dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t)
+dropdown.pack(pady=30)
+
 
 test = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
 

@@ -24,7 +24,18 @@ app.resizable(False, False)
 
 
 l_model = []
+
 b = (ollama.list())
+if b['models'] == []:
+  a = str(input("It seems like you have no models installed. Please enter one below, enter h for recommended models"))
+  if a == 'h':
+     """\n\n
+     3 recommended models:
+      -phi3: small and lightweight. Can be run pretty easily.
+      -mistral: not too big not too small, requires better specs
+      -llama-3: very ressource intensive, but a very capable model
+     """
+
 for i in range(len(b['models'])):
     l_model.append(b['models'][i]['name'])
 

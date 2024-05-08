@@ -1,8 +1,14 @@
 import ollama
-import tkinter
 import customtkinter as ctk
-import sys
-import importlib
+
+
+app = ctk.CTk()
+app.geometry('1400x720')
+app.title('test')
+app.resizable(False, False)
+
+
+
 
 l_model = []
 a = (ollama.list())
@@ -12,7 +18,9 @@ for i in range(len(a['models'])):
 
 
 def Response(app):
-    answer.configure(text="Writing..")
+    
+    
+    entry.configure(state='disabled')
     
     response = ollama.chat(model=t.get(), messages=[
     {
@@ -21,23 +29,20 @@ def Response(app):
     },
     ])
     answer.configure(text=response['message']['content'])
+    txt.set("")
+    entry.configure(state="normal")
     
 
 
-app = ctk.CTk()
-app.geometry('1400x720')
-app.title('test')
-app.resizable(False, False)
-txt = ctk.StringVar()
 
 t = ctk.StringVar(value=l_model[0])
 dropdown = ctk.CTkOptionMenu(app, values=l_model, variable=t)
 dropdown.pack(pady=30)
 
-
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 20), fg_color='gray', wraplength=1300, corner_radius=5)
-
 answer.pack(pady=30)
+
+txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=5, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
 

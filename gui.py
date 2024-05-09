@@ -67,7 +67,6 @@ def downloader():
   for i in range(len(b['models'])):
     n_model.append(b['models'][i]['name'])
   dropdown.configure(values=n_model)
-  status.pack(side="bottom")
   t.set(n_model[0])
   print('\n\n')
 
@@ -75,7 +74,6 @@ def Response(app):
     
     
     entry.configure(state='disabled')
-    status.forget()
     response = ollama.chat(model=t.get(), messages=[
     {
     'role': 'user',
@@ -104,9 +102,8 @@ button_d.pack(side="bottom", pady=(0, 10))
 txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=10, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
+entry.focus()
 
-status = ctk.CTkLabel(app, width=200, text="Writing..", font=('Arial', 15), fg_color="black", corner_radius=10)
-#status.pack(side="bottom")
 
 
 

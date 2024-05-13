@@ -58,17 +58,18 @@ def downloader():
   button_d.configure(text="Check terminal")
   button_d.configure(state='diabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
-  a = str(input("What is the name of the model you wish to download? (From Ollama)  "))
-  print('\n\n')
-  subprocess.run(['ollama', 'pull', a])
-  button_d.configure(text="Download more models (in terminal)")
+  ans = mod_get.get_input()
+  if ans:
+    subprocess.run(['ollama', 'pull', ans])
+    n_model = []
+    b = (ollama.list())
+    for i in range(len(b['models'])):
+      n_model.append(b['models'][i]['name'])
+    dropdown.configure(values=n_model)
+    t.set(n_model[0])
+    
+  button_d.configure(text="Download more models")
   button_d.configure('normal')
-  n_model = []
-  b = (ollama.list())
-  for i in range(len(b['models'])):
-    n_model.append(b['models'][i]['name'])
-  dropdown.configure(values=n_model)
-  t.set(n_model[0])
   print('\n\n')
 
 def Response(app):

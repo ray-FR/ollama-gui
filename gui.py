@@ -7,7 +7,7 @@ if x.upper() == 'Y':
    subprocess.run(['pip', 'install', 'customtkinter'])
    print("\n\nIf no errors happened, these 2 libraries should be correctly installed, if theres an issue, just relaunch the program, enjoy! ")
    print('\n\n')
-   
+
 
 
 import ollama
@@ -55,7 +55,7 @@ for i in range(len(b['models'])):
 
 
 def downloader():
-  button_d.configure(text="Check terminal")
+  button_d.configure(text="Check pop-up")
   button_d.configure(state='diabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
   ans = mod_get.get_input()
@@ -67,7 +67,7 @@ def downloader():
       n_model.append(b['models'][i]['name'])
     dropdown.configure(values=n_model)
     t.set(n_model[0])
-    
+
   button_d.configure(text="Download more models")
   button_d.configure('normal')
   print('\n\n')

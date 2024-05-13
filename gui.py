@@ -57,6 +57,7 @@ for i in range(len(b['models'])):
 def downloader():
   button_d.configure(text="Check terminal")
   button_d.configure(state='diabled')
+  mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
   a = str(input("What is the name of the model you wish to download? (From Ollama)  "))
   print('\n\n')
   subprocess.run(['ollama', 'pull', a])
@@ -96,7 +97,7 @@ answer.pack(pady=5)
 
 
 
-button_d = ctk.CTkButton(app, text="Download more models (in terminal)", command=downloader, font=("Arial", 11))
+button_d = ctk.CTkButton(app, text="Download more models", command=downloader, font=("Arial", 11))
 button_d.pack(side="bottom", pady=(0, 10))
 
 txt = ctk.StringVar()

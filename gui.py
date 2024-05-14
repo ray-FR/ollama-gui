@@ -17,27 +17,15 @@ import customtkinter as ctk
 
 b = ollama.list()
 if b['models'] == None:
-  te = ctk.CTkInputDialog(text="testing")
-  n_model = []
-  a = str(input("It seems like you have no models installed. Please enter one below, enter h for recommended models ->   "  ))
-  if a.lower() == 'h':
-    print(
-    """\n\n
-     3 recommended models:
-          
-
-      -phi3: small and lightweight. Can be run pretty easily.
-      -mistral: not too big not too small, requires better specs
-      -llama-3: very ressource intensive, but a very capable model
-
-          
-
-      You can also check other models on the ollama website: https://ollama.com/library
-      \n\n\n
-    """)
-    a = str(input("now choose one! ->  "))
-  print('\n\n')
-  subprocess.run(['ollama', 'pull', a])
+  te = ctk.CTkInputDialog(title="Model download" ,text="It seems you don't have any models installed, please enter one below, if you choose to cancel then the program will stop itself")
+  te.focus()
+  inp = te.get_input()
+  if inp:
+    subprocess.run(['ollama', 'pull', inp])
+  else:
+    quit()
+     
+  
 
 app = ctk.CTk()
 app.geometry('1400x720')
@@ -53,6 +41,7 @@ app.resizable(False, False)
 
 
 b = ollama.list()
+n_model = []
 
 for i in range(len(b['models'])):
     n_model.append(b['models'][i]['name'])

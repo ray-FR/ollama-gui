@@ -1,5 +1,8 @@
 import subprocess
 import random
+import requests
+
+
 
 print('\n\n')
 x = str(input('Want to install the relevent libraries? (Ollama, customtkinter)  [Y, N] ->   '))
@@ -111,7 +114,7 @@ def downloader():
     ent_tabs = ctk.CTkTabview(ent, width=540)
     ent_tabs.pack(pady=20)
     ent1 = ent_tabs.add("Rock, Paper, Scissor")
-    ent2 = ent_tabs.add("test2")
+    ent2 = ent_tabs.add("Cat photo generator")
     ent_tabs.set("Rock, Paper, Scissor")
 
 
@@ -136,7 +139,7 @@ def downloader():
     for i in range(len(b['models'])):
       n_model.append(b['models'][i]['name'])
     dropdown.configure(values=n_model)
-    t.set(n_model[0])
+    m.set(n_model[0])
 
   button_do.configure(text="Download more models")
   button_do.configure('normal')
@@ -154,7 +157,7 @@ def delete():
     for i in range(len(b['models'])):
       n_model.append(b['models'][i]['name'])
     dropdown.configure(values=n_model)
-    t.set(n_model[0])
+    m.set(n_model[0])
 
   button_de.configure(text="Delete more models")
   button_de.configure('normal')
@@ -164,7 +167,7 @@ def Response(app):
     
     
     entry.configure(state='disabled')
-    response = ollama.chat(model=t.get(), messages=[
+    response = ollama.chat(model=m.get(), messages=[
     {
     'role': 'user',
     'content': txt.get(),
@@ -178,8 +181,8 @@ def Response(app):
 
 
 
-t = ctk.StringVar(value=n_model[0])
-dropdown = ctk.CTkOptionMenu(app, values=n_model, variable=t, font=("Arial", 12))
+m = ctk.StringVar(value=n_model[0])
+dropdown = ctk.CTkOptionMenu(app, values=n_model, variable=m, font=("Arial", 12))
 dropdown.pack(pady=(10, 30))
 
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 18), fg_color='gray', wraplength=1300, corner_radius=5)

@@ -59,6 +59,26 @@ def downloader():
     ent.title("Entertainment")
     ent_t = ctk.CTkLabel(ent, text="While you wait for the install of your model, you can use objects inside this window to pass time", wraplength=540)
     ent_t.pack(pady=20)
+    ent_tabs = ctk.CTkTabview(ent, width=540)
+    ent_tabs.pack(pady=20)
+    ent1 = ent_tabs.add("Rock, Paper, Scissor")
+    ent2 = ent_tabs.add("test2")
+    ent_tabs.set("Rock, Paper, Scissor")
+
+
+    ent_l1 = ctk.CTkLabel(ent1, text="A simple game of rock, paper, scissor!")
+    ent_l1.pack()
+    ent_l1_res = ctk.CTkLabel(ent1, text="Result of the game will replace this text")
+    ent_l1_res.pack()
+
+    ent_l1_f = ctk.CTkFrame(ent1)
+    ent_l1_f.pack(side="bottom")
+    ent_l1_b1 = ctk.CTkButton(ent1, text="Rock")
+    ent_l1_b1.pack(in_=ent_l1_f)
+    ent_l1_b2 = ctk.CTkButton(ent1, text="Paper")
+    ent_l1_b2.pack(in_=ent_l1_f)
+    ent_l1_b3 = ctk.CTkButton(ent1, text="Scissor")
+    ent_l1_b3.pack(in_=ent_l1_f)
 
 
     subprocess.run(['ollama', 'pull', ans])

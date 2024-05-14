@@ -15,19 +15,10 @@ import customtkinter as ctk
 
 
 
-app = ctk.CTk()
-app.geometry('1400x720')
-app.title('Ollama GUI')
-app.resizable(False, False)
-
-
-
-
-
-n_model = []
-
 b = ollama.list()
-if b['models'] == []:
+if b['models'] == None:
+  te = ctk.CTkInputDialog(text="testing")
+  n_model = []
   a = str(input("It seems like you have no models installed. Please enter one below, enter h for recommended models ->   "  ))
   if a.lower() == 'h':
     print(
@@ -48,6 +39,19 @@ if b['models'] == []:
   print('\n\n')
   subprocess.run(['ollama', 'pull', a])
 
+app = ctk.CTk()
+app.geometry('1400x720')
+app.title('Ollama GUI')
+app.resizable(False, False)
+
+
+
+
+
+
+
+
+
 b = ollama.list()
 
 for i in range(len(b['models'])):
@@ -55,8 +59,8 @@ for i in range(len(b['models'])):
 
 
 def downloader():
-  button_d.configure(text="Check pop-up")
-  button_d.configure(state='diabled')
+  button_do.configure(text="Check pop-up")
+  button_do.configure(state='diabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
   ans = mod_get.get_input()
   if ans:
@@ -68,8 +72,8 @@ def downloader():
     dropdown.configure(values=n_model)
     t.set(n_model[0])
 
-  button_d.configure(text="Download more models")
-  button_d.configure('normal')
+  button_do.configure(text="Download more models")
+  button_do.configure('normal')
   print('\n\n')
 
 def Response(app):

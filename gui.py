@@ -12,7 +12,7 @@ if x.upper() == 'Y':
 
 import ollama
 import customtkinter as ctk
-
+import time
 
 
 b = ollama.list()
@@ -24,6 +24,7 @@ if b['models'] == None:
   if inp:
     subprocess.run(['ollama', 'pull', inp])
   else:
+    print("The program cannot be run if there are no models installed.\nConsider one of the following models: phi3, qwen:4b, llama3\n\n")
     quit()
      
   
@@ -66,6 +67,24 @@ def downloader():
   button_do.configure('normal')
   print('\n\n')
 
+def delete():
+  button_de.configure(text="Check pop-up")
+  button_de.configure(state='diabled')
+  mod_get = ctk.CTkInputDialog(text="What is the name of the model you want to delete?", title="Model delete")
+  ans = mod_get.get_input()
+  if ans:
+    subprocess.run(['ollama', 'rm', ans])
+    n_model = []
+    b = (ollama.list())
+    for i in range(len(b['models'])):
+      n_model.append(b['models'][i]['name'])
+    dropdown.configure(values=n_model)
+    t.set(n_model[0])
+
+  button_de.configure(text="Delete more models")
+  button_de.configure('normal')
+  print('\n\n')
+
 def Response(app):
     
     
@@ -75,7 +94,8 @@ def Response(app):
     'role': 'user',
     'content': txt.get(),
     },
-    ])
+    ],
+    keep_alive=60)
     answer.configure(text=response['message']['content'])
     txt.set("")
     entry.configure(state="normal")
@@ -94,10 +114,10 @@ butt_frame = ctk.CTkFrame(app)
 butt_frame.pack(side="bottom")
 
 button_do = ctk.CTkButton(app, text="Download more models", command=downloader, font=("Arial", 11))
-button_do.pack(in_=butt_frame  ,side="left", pady=(0, 10), padx=(0, 15))
+button_do.pack(in_=butt_frame, side="left", pady=(0, 10), padx=(0, 15))
 
-button_de = ctk.CTkButton(app, text="Delete models", font=("Arial", 11))
-button_de.pack(in_=butt_frame  ,side="left", pady=(0, 10))
+button_de = ctk.CTkButton(app, text="Delete models", command=delete, font=("Arial", 11))
+button_de.pack(in_=butt_frame, side="left", pady=(0, 10))
 
 txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=10, font=('Arial', 22), height=35)

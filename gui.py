@@ -12,8 +12,6 @@ if x.upper() == 'Y':
 
 import ollama
 import customtkinter as ctk
-import time
-
 
 b = ollama.list()
 if b['models'] == None:
@@ -51,10 +49,18 @@ for i in range(len(b['models'])):
 
 def downloader():
   button_do.configure(text="Check pop-up")
-  button_do.configure(state='diabled')
+  button_do.configure(state='disabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
   ans = mod_get.get_input()
   if ans:
+    ent = ctk.CTkToplevel(app)
+    ent.geometry('580x740')
+    ent.resizable(False, False)
+    ent.title("Entertainment")
+    ent_t = ctk.CTkLabel(ent, text="While you wait for the install of your model, you can use objects inside this window to pass time", wraplength=540)
+    ent_t.pack(pady=20)
+
+
     subprocess.run(['ollama', 'pull', ans])
     n_model = []
     b = (ollama.list())
@@ -69,7 +75,7 @@ def downloader():
 
 def delete():
   button_de.configure(text="Check pop-up")
-  button_de.configure(state='diabled')
+  button_de.configure(state='disabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want to delete?", title="Model delete")
   ans = mod_get.get_input()
   if ans:

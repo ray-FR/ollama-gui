@@ -96,10 +96,14 @@ dropdown.pack(pady=(10, 30))
 answer = ctk.CTkLabel(app, width=1250, text='', font=('Arial', 18), fg_color='gray', wraplength=1300, corner_radius=5)
 answer.pack(pady=5)
 
+butt_frame = ctk.CTkFrame(app)
+butt_frame.pack(side="bottom")
 
+button_do = ctk.CTkButton(app, text="Download more models", command=downloader, font=("Arial", 11))
+button_do.pack(in_=butt_frame  ,side="left", pady=(0, 10), padx=(0, 15))
 
-button_d = ctk.CTkButton(app, text="Download more models", command=downloader, font=("Arial", 11))
-button_d.pack(side="bottom", pady=(0, 10))
+button_de = ctk.CTkButton(app, text="Delete models", font=("Arial", 11))
+button_de.pack(in_=butt_frame  ,side="left", pady=(0, 10))
 
 txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=10, font=('Arial', 22), height=35)

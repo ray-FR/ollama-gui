@@ -1,6 +1,7 @@
 import subprocess
 import random
 import requests
+from PIL import ImageTk, Image
 
 
 
@@ -13,10 +14,10 @@ if x.upper() == 'Y':
    print("\n\nIf no errors happened, these 2 libraries should be correctly installed, if theres an issue, just relaunch the program, enjoy! ")
    print('\n\n')
 
-
-
 import ollama
 import customtkinter as ctk
+
+
 
 b = ollama.list()
 if b['models'] == None:
@@ -32,18 +33,21 @@ if b['models'] == None:
      
   
 
+
+
+
 app = ctk.CTk()
 app.geometry('1400x720')
 app.title('Ollama GUI')
 app.resizable(False, False)
 
 
-
-
-
-
-
 p1, p2 = 0,0
+
+
+
+
+
 
 b = ollama.list()
 n_model = []
@@ -54,7 +58,16 @@ for i in range(len(b['models'])):
 
 def downloader():
 
-  
+  def cat_api():
+    c_api = requests.get("https://api.thecatapi.com/v1/images/search").json()
+    c_url = c_api[0]["url"]
+    img = Image.open(requests.get(c_url, stream=True).raw)
+    img.thumbnail((400, 400))
+    c_img = ImageTk.PhotoImage(img)
+    ent_l2_l.configure(image=c_img)
+
+
+
 
   def RPS(c):
     global p1, p2
@@ -63,6 +76,7 @@ def downloader():
 
     ent_l1_res.configure(fg_color='transparent')
     res = random.randint(1, 3)
+
     if res == 1 and c == "R":
         ent_l1_res.configure(text=f"Tie!\nYour score: {p1}, the computer score: {p2}")
     elif res == 2 and c == "P":
@@ -71,24 +85,30 @@ def downloader():
         ent_l1_res.configure(text=f"Tie!\nYour score: {p1}, the computer score: {p2}")
 
     elif res == 1 and c == "P":
-        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
         p1+=1
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        
     elif res == 2 and c == "S":
-        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
         p1+=1
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        
     elif res == 3 and c == "R":
-        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
         p1+=1
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        
 
     elif res == 1 and c == "S":
-        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
         p2+=1
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        
     elif res == 2 and c == "R":
-        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
         p2+=1
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        
     elif res == 3 and c == "P":
-        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
         p2+=1
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        
 
     if p1 == 5:
       ent_l1_res.configure(text=f"Congrats! You won!\nYour score: {p1}, the computer score: {p2}", fg_color="green")
@@ -96,6 +116,9 @@ def downloader():
     if p2 == 5:
       ent_l1_res.configure(text=f"You lose!\nYour score: {p1}, the computer score: {p2}", fg_color="red")
       p1, p2 = 0, 0
+
+
+
 
 
 
@@ -125,12 +148,27 @@ def downloader():
 
     ent_l1_f = ctk.CTkFrame(ent1)
     ent_l1_f.pack(side="bottom")
+
     ent_l1_b1 = ctk.CTkButton(ent1, text="Rock", command= lambda: RPS("R"))
     ent_l1_b1.pack(in_=ent_l1_f, side="left", padx=(0, 15))
     ent_l1_b2 = ctk.CTkButton(ent1, text="Paper", command= lambda: RPS("P"))
     ent_l1_b2.pack(in_=ent_l1_f, side="left", padx=(0, 15))
     ent_l1_b3 = ctk.CTkButton(ent1, text="Scissor", command= lambda: RPS("S"))
     ent_l1_b3.pack(in_=ent_l1_f, side="left")
+
+
+
+
+    ent_l2 = ctk.CTkLabel(ent2, text="Cat pictures! Just press the reload button to get new ones!")
+    ent_l2.pack()
+
+    ent_l2_l = ctk.CTkLabel(ent2, text="")
+    ent_l2_l.pack(pady=15)
+    ent_l2_b = ctk.CTkButton(ent2, text="Reload", command=cat_api)
+    ent_l2_b.pack(side="bottom", padx=(0, 15))
+
+
+
 
 
     subprocess.run(['ollama', 'pull', ans])
@@ -141,8 +179,9 @@ def downloader():
     dropdown.configure(values=n_model)
     m.set(n_model[0])
 
+
   button_do.configure(text="Download more models")
-  button_do.configure('normal')
+  button_do.configure(state='normal')
   print('\n\n')
 
 def delete():
@@ -160,7 +199,7 @@ def delete():
     m.set(n_model[0])
 
   button_de.configure(text="Delete more models")
-  button_de.configure('normal')
+  button_de.configure(state='normal')
   print('\n\n')
 
 def Response(app):

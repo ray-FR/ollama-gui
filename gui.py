@@ -1,4 +1,6 @@
 import subprocess
+import random
+
 print('\n\n')
 x = str(input('Want to install the relevent libraries? (Ollama, customtkinter)  [Y, N] ->   '))
 print()
@@ -38,7 +40,7 @@ app.resizable(False, False)
 
 
 
-
+p1, p2 = 0,0
 
 b = ollama.list()
 n_model = []
@@ -48,6 +50,53 @@ for i in range(len(b['models'])):
 
 
 def downloader():
+
+  
+
+  def RPS(c):
+    global p1, p2
+
+    
+
+    ent_l1_res.configure(fg_color='transparent')
+    res = random.randint(1, 3)
+    if res == 1 and c == "R":
+        ent_l1_res.configure(text=f"Tie!\nYour score: {p1}, the computer score: {p2}")
+    elif res == 2 and c == "P":
+        ent_l1_res.configure(text=f"Tie!\nYour score: {p1}, the computer score: {p2}")
+    elif res == 3 and c == "S":
+        ent_l1_res.configure(text=f"Tie!\nYour score: {p1}, the computer score: {p2}")
+
+    elif res == 1 and c == "P":
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        p1+=1
+    elif res == 2 and c == "S":
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        p1+=1
+    elif res == 3 and c == "R":
+        ent_l1_res.configure(text=f"You win! +1 point\nYour score: {p1}, the computer score: {p2}")
+        p1+=1
+
+    elif res == 1 and c == "S":
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        p2+=1
+    elif res == 2 and c == "R":
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        p2+=1
+    elif res == 3 and c == "P":
+        ent_l1_res.configure(text=f"You lose! +1 point for the computer!\nYour score: {p1}, the computer score: {p2}")
+        p2+=1
+
+    if p1 == 5:
+      ent_l1_res.configure(text=f"Congrats! You won!\nYour score: {p1}, the computer score: {p2}", fg_color="green")
+      p1, p2 = 0, 0
+    if p2 == 5:
+      ent_l1_res.configure(text=f"You lose!\nYour score: {p1}, the computer score: {p2}", fg_color="red")
+      p1, p2 = 0, 0
+
+
+
+
   button_do.configure(text="Check pop-up")
   button_do.configure(state='disabled')
   mod_get = ctk.CTkInputDialog(text="What is the name of the model you want?", title="Model download")
@@ -73,12 +122,12 @@ def downloader():
 
     ent_l1_f = ctk.CTkFrame(ent1)
     ent_l1_f.pack(side="bottom")
-    ent_l1_b1 = ctk.CTkButton(ent1, text="Rock")
-    ent_l1_b1.pack(in_=ent_l1_f)
-    ent_l1_b2 = ctk.CTkButton(ent1, text="Paper")
-    ent_l1_b2.pack(in_=ent_l1_f)
-    ent_l1_b3 = ctk.CTkButton(ent1, text="Scissor")
-    ent_l1_b3.pack(in_=ent_l1_f)
+    ent_l1_b1 = ctk.CTkButton(ent1, text="Rock", command= lambda: RPS("R"))
+    ent_l1_b1.pack(in_=ent_l1_f, side="left", padx=(0, 15))
+    ent_l1_b2 = ctk.CTkButton(ent1, text="Paper", command= lambda: RPS("P"))
+    ent_l1_b2.pack(in_=ent_l1_f, side="left", padx=(0, 15))
+    ent_l1_b3 = ctk.CTkButton(ent1, text="Scissor", command= lambda: RPS("S"))
+    ent_l1_b3.pack(in_=ent_l1_f, side="left")
 
 
     subprocess.run(['ollama', 'pull', ans])
@@ -149,7 +198,6 @@ txt = ctk.StringVar()
 entry = ctk.CTkEntry(app, width=800, textvariable=txt, corner_radius=10, font=('Arial', 22), height=35)
 entry.pack(padx = 20, pady = 25, side="bottom")
 entry.focus()
-
 
 
 

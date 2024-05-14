@@ -18,7 +18,8 @@ import customtkinter as ctk
 b = ollama.list()
 if b['models'] == None:
   te = ctk.CTkInputDialog(title="Model download" ,text="It seems you don't have any models installed, please enter one below, if you choose to cancel then the program will stop itself")
-  te.focus()
+  te_b = ctk.CTkButton(te, text="test")
+  
   inp = te.get_input()
   if inp:
     subprocess.run(['ollama', 'pull', inp])
